@@ -82,7 +82,7 @@ def main() -> None:
                 output_line += value + ','
             for value in aavso_columns.values():
                 output_line += value + ','
-            for value in nomad_columns.values():
+            for value in mass_columns.values():
                 output_line += value + ','
             output_line = output_line[:-1]
             output_line += '\n'
