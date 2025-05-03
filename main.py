@@ -20,25 +20,33 @@ def main() -> None:
     # Vizier.clear_cache()
 
     data_file_path = (Path(__file__).parent / "data/subset_1.txt").resolve()
-    with data_file_path.open('r', encoding='utf-8') as data_file:
+    output_file_path = (Path(__file__).parent / "data/subset_1_output.txt").resolve()
+    with (data_file_path.open('r', encoding='utf-8') as data_file,
+          output_file_path.open('w', encoding='utf-8') as output_file):
         pbar = tqdm(total=len(data_file.readlines()) - 1)
         data_file.seek(0)
 
-        column_names: list[str] = data_file.readline().strip().split(',')
+        column_names_line = data_file.readline().strip()
+        column_names: list[str] = column_names_line.split(',')
+
         ra_index: int = column_names.index('ra')
         dec_index: int = column_names.index('dec')
 
+        column_names_line = f'{column_names_line},GAIA,Gmag,Tmag,Bmag,Vmag,Bmag,Vmag,Rmag,Jmag,Hmag,Kmag,Jmag,Hmag,Kmag\n'
+        output_file.write(column_names_line)
+
         for line in data_file:
-            line_elements_arr: list[float] = list(map(float, line.strip().split(',')))
+            output_line = line.strip()
+            line_elements_arr: list[float] = list(map(float, output_line.split(',')))
             object_ra, object_dec = line_elements_arr[ra_index], line_elements_arr[dec_index]
             object_coord = coordinates.SkyCoord(object_ra, object_dec, unit='deg')
 
             tess_columns: dict[str, str] = {
-                'GAIA': '-', 'Gmag': '-', 'Tmag': '-', 'Bmag': '-', 'Vmag': '-'}
+                'GAIA': 'nan', 'Gmag': 'nan', 'Tmag': 'nan', 'Bmag': 'nan', 'Vmag': 'nan'}
             nomad_columns: dict[str, str] = {
-                'Bmag': '-', 'Vmag': '-', 'Rmag': '-', 'Jmag': '-', 'Hmag': '-', 'Kmag': '-'}
-            aavso_columns: dict[str, str] = {'Bmag': '-', 'Vmag': '-'}
-            mass_columns: dict[str, str] = {'Jmag': '-', 'Hmag': '-', 'Kmag': '-'}
+                'Bmag': 'nan', 'Vmag': 'nan', 'Rmag': 'nan', 'Jmag': 'nan', 'Hmag': 'nan', 'Kmag': 'nan'}
+            aavso_columns: dict[str, str] = {'Bmag': 'nan', 'Vmag': 'nan'}
+            mass_columns: dict[str, str] = {'Jmag': 'nan', 'Hmag': 'nan', 'Kmag': 'nan'}
 
             object_table = Vizier.query_region(object_coord, radius=SEARCH_RADIUS)
             for catalog_name in object_table.keys():
@@ -66,6 +74,19 @@ def main() -> None:
                         if key not in mass_catalog.keys():
                             continue
                         mass_columns[key] = str(mass_catalog[key].value.data[0])
+
+            output_line += ','
+            for value in tess_columns.values():
+                output_line += value + ','
+            for value in nomad_columns.values():
+                output_line += value + ','
+            for value in aavso_columns.values():
+                output_line += value + ','
+            for value in nomad_columns.values():
+                output_line += value + ','
+            output_line = output_line[:-1]
+            output_line += '\n'
+            output_file.write(output_line)
 
             pbar.update(1)
 
