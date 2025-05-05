@@ -32,7 +32,7 @@ def main() -> None:
         ra_index: int = column_names.index('ra')
         dec_index: int = column_names.index('dec')
 
-        column_names_line = f'{column_names_line},GAIA,Gmag,Tmag,Bmag,Vmag,Bmag,Vmag,Rmag,Jmag,Hmag,Kmag,Jmag,Hmag,Kmag\n'
+        column_names_line = f'{column_names_line},GAIA,Gmag,Tmag,Bmag,Vmag,Bmag,Vmag,Rmag,Jmag,Hmag,Kmag,Bmag,Vmag,Jmag,Hmag,Kmag\n'
         output_file.write(column_names_line)
 
         for line in data_file:
