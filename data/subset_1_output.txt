@@ -1,4 +1,4 @@
-source_id,ra,dec,phot_g_mean_mag,GAIA,Gmag,Tmag,Bmag,Vmag,Bmag,Vmag,Rmag,Jmag,Hmag,Kmag,Bmag,Vmag,Jmag,Hmag,Kmag
+source_id,ra,dec,phot_g_mean_mag,GAIA,Tess Gmag,Tess Tmag,Tess Bmag,Tess Vmag,Nomad Bmag,Nomad Vmag,Nomad Rmag,Nomad Jmag,Nomad Hmag,Nomad Kmag,Aavso Bmag,Aavso Vmag,Mass Jmag,Mass Hmag,Mass Kmag
 4575010197472244352,257.6180254825805,27.96888207562627,15.4,4575010197472244352,nan,nan,nan,nan,18.35,16.97,16.24,11.853,11.268,10.939,nan,nan,11.854,11.268,10.939
 4542284161585626496,260.98726172839093,13.638152229470876,12.41,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,nan
 1813577913861507072,312.8989293540186,19.400340235929352,13.19,1813577913861507072,nan,nan,nan,nan,15.13,14.16,14.37,10.135,9.557,9.282,16.279,14.689,10.136,9.558,9.282

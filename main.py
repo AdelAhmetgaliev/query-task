@@ -32,7 +32,11 @@ def main() -> None:
         ra_index: int = column_names.index('ra')
         dec_index: int = column_names.index('dec')
 
-        column_names_line = f'{column_names_line},GAIA,Gmag,Tmag,Bmag,Vmag,Bmag,Vmag,Rmag,Jmag,Hmag,Kmag,Bmag,Vmag,Jmag,Hmag,Kmag\n'
+        tess_column_names = 'GAIA,Tess Gmag,Tess Tmag,Tess Bmag,Tess Vmag'
+        nomad_column_names = 'Nomad Bmag,Nomad Vmag,Nomad Rmag,Nomad Jmag,Nomad Hmag,Nomad Kmag'
+        aavso_column_names = 'Aavso Bmag,Aavso Vmag'
+        mass_column_names = 'Mass Jmag,Mass Hmag,Mass Kmag'
+        column_names_line = f'{column_names_line},{tess_column_names},{nomad_column_names},{aavso_column_names},{mass_column_names}\n'
         output_file.write(column_names_line)
 
         for line in data_file:
